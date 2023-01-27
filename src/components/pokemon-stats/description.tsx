@@ -1,4 +1,4 @@
-import { UseApiStats } from '../image/contextProviderStats'
+import { UseApiStats } from '../../services/providers/contextProviderStats'
 import { FlavorTextEntries } from '../../model/PokemonModel'
 
 export function Description() {
@@ -12,7 +12,6 @@ export function Description() {
     })
   }
 
-  console.log('filteredDescription', filteredDescription)
   if (filteredDescription[0]) {
     return (
       <p className="text-sm leading-5 py-4 text-gray-600">{filteredDescription[0].flavor_text}</p>

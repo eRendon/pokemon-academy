@@ -1,6 +1,7 @@
-import { UseApiStats } from '../image/contextProviderStats'
+import { UseApiStats } from '../../services/providers/contextProviderStats'
 
 export function TypeName({ name }: { name: string }) {
+
   const { types } = UseApiStats()
 
   return (
@@ -9,11 +10,11 @@ export function TypeName({ name }: { name: string }) {
       { types.map((type, key) => {
         if (types.length -1 !== key) {
           return (
-            <span>{type.type.name.toUpperCase()+' / '}</span>
+            <span key={key}>{type.type.name.toUpperCase()+' / '}</span>
           )
         } else {
           return (
-            <span>{type.type.name.toUpperCase()}</span>
+            <span key={key}>{type.type.name.toUpperCase()}</span>
           )
         }
       })

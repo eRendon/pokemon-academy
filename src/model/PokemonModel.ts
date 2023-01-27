@@ -22,7 +22,7 @@ export interface PokemonModel extends Stat {
   past_types: []
   species: {}
   sprites: Sprites
-  stats: []
+  stats: Stats[]
   types: Types[]
   weight: number
 }
@@ -59,6 +59,8 @@ export interface Sprites {
 export interface PokemonSpecies {
   flavor_text_entries: FlavorTextEntries[]
   name: string
+  generation: Stat
+  color: Stat
 }
 
 export interface FlavorTextEntries {

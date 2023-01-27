@@ -4,7 +4,7 @@ import Pokemon from './services/request/pokemon'
 import { PokemonModel } from './model/PokemonModel'
 import Navbar from './components/header/navbar'
 import LifeStats from './components/pokemon-stats/life-stats'
-import { ContextProviderStats } from './components/image/contextProviderStats'
+import { ContextProviderStats } from './services/providers/contextProviderStats'
 import { Image } from './components/image/image'
 import { Description } from './components/pokemon-stats/description'
 import { TypeName } from './components/pokemon-stats/type'
@@ -31,7 +31,7 @@ export default function App() {
     <div className='app'>
       <Navbar onSearch={searchPokemon}></Navbar>
       <div className="py-8 w-full">
-        <div className="lg:grid grid-cols-2 gap-4">
+        <div className="md:grid grid-cols-2 gap-4">
           {pokemons.filter((pokemon) => {
             if (!pokemonName) {
               return pokemon

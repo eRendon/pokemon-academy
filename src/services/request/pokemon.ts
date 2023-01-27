@@ -3,8 +3,10 @@ import { PokemonModel, PokemonsModel, PokemonSpecies } from '../../model/Pokemon
 import { AxiosService } from '../axios/axiosService'
 
 export default class Pokemon {
+  
   private static axiosService = new AxiosService<PokemonsModel>()
   private static axiosSingleService = new AxiosService<PokemonModel | PokemonSpecies>()
+
   static async getPokemon (url: string): Promise<SurePromise<PokemonsModel>> {
     try {
       return await this.axiosService!.getData(url)
@@ -14,7 +16,7 @@ export default class Pokemon {
     }
   }
 
-  static async getSprite (name: string) {
+  static async getPokemonDetail (name: string): Promise<SurePromise<PokemonModel | PokemonSpecies>> {
     try {
       return await this.axiosSingleService!.getData(`pokemon/${name}`)
     }
@@ -30,5 +32,10 @@ export default class Pokemon {
      catch (e) {
       throw e
      }
+  }
+
+  static async getGeneration (id: number) {
+    const axiosService = new AxiosService()
+    return axiosService.getData(`generation/${id}`)
   }
 }

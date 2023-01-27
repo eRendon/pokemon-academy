@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react'
 import { PokemonModel, PokemonSpecies, Sprites, Stats, Types } from '../../model/PokemonModel'
-import Pokemon from '../../services/request/pokemon'
+import Pokemon from '../request/pokemon'
 import { SurePromise } from '../../model/SurePromise'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
   const [stats, setStats] = useState([] as Stats [])
   const [description, setDescription] = useState({} as PokemonSpecies)
   const [types, setTypes] = useState([] as Types[])
+  const [pokemonDetails, setPokemonDetail] = useState({} as PokemonModel)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,11 +26,12 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
 
   const getSprite = async (name: string): Promise<void> => {
     try {
-      const { data } = await Pokemon.getSprite(name) as unknown as SurePromise<PokemonModel>
+      const { data } = await Pokemon.getPokemonDetail(name) as unknown as SurePromise<PokemonModel>
       const { sprites, stats, id, types } = data
       setSprites(sprites)
       setStats(stats)
       setTypes(types)
+      setPokemonDetail(data)
       await getDescription(id)
     } catch (e) {
       throw e
@@ -46,8 +48,8 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
     }
   }
 
-  const detailPokemon = (pokemonDetail: PokemonSpecies) => {
-    navigate('detail', { state: { detail: pokemonDetail, sprites, types, stats }})
+  const detailPokemon = (pokemonSpecies: PokemonSpecies) => {
+    navigate('detail', { state: { detail: pokemonSpecies, pokemonDetails }})
   }
 
   return (

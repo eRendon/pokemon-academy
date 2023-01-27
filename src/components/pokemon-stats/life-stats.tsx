@@ -1,8 +1,9 @@
-import { UseApiStats } from '../image/contextProviderStats'
+import { UseApiStats } from '../../services/providers/contextProviderStats'
 
 function LifeStats() {
+  
   const { stats } = UseApiStats()
-  console.log('las stats', stats)
+
   return (
     <div className='flex justify-end'>
       {
