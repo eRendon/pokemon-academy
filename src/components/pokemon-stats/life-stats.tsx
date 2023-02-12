@@ -1,33 +1,71 @@
 import { UseApiStats } from '../../services/providers/contextProviderStats'
+import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 function LifeStats() {
-  
-  const { stats } = UseApiStats()
+  const { stats, pokemon, description } = UseApiStats()
+  const location = useLocation()
+  const filterGeneration = (generation: string): string => {
+    if (generation) {
+      return generation.replace(/generation-/g, '')
+    }
+    return ''
+  }
+
+  const renderStats = () => {
+    if (location.pathname !== '/detail') {
+      return (
+        <div >
+          <div>
+            <div className='lg:grid grid-cols-4 gap-2 grid text-left'>
+              <div className='test-stats capitalize '>peso</div>
+              <div className='text-left font-bold'>~ {pokemon.weight}</div>
+              <div>Generacion</div>
+              <div className=' capitalize font-bold text-left'>{filterGeneration(description.generation?.name)}</div>
+            </div>
+            <div className='lg:grid grid-cols-4 gap-2 grid text-left'>
+              <div className='test-stats capitalize text-left'>Altura</div>
+              <div className='text-left font-bold'>~ {pokemon.height}</div>
+              <div>Inicial</div>
+              <div className='capitalize font-bold'>{description.evolves_from_species?.name || 'N/A'}</div>
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <></>
+      )
+    }
+  }
 
   return (
-    <div className='flex justify-end'>
-      {
-        stats.map((state, key) => {
-          switch (state.stat.name) {
-            case 'hp':
-              return (
-                <div key={key} className="py-2 px-4 text-xs leading-3 text-white rounded-full bg-emerald-300"> <span>Max Hp: </span>{state.base_stat}</div>
-              )
-            case 'attack':
-              return (
-                <div key={key} className="py-2 px-4 text-xs leading-3 text-white rounded-full bg-fuchsia-300"> <span>Ataque: </span>{state.base_stat}</div>
-              )
-            case 'defense':
-              return (
-                <div key={key} className="py-2 px-4 text-xs leading-3 text-white rounded-full bg-red-300"> <span>Defensa: </span>{state.base_stat}</div>
-              )
-            case 'speed':
-              return (
-                <div key={key} className="py-2 px-4 text-xs leading-3 text-white rounded-full bg-indigo-300"> <span>Velocidad: </span>{state.base_stat}</div>
-              )
-          }
-        })
-      }
+    <div>
+      <div className='stats-pokemon lg:grid grid-cols-3 gap-2 w-full grid'>
+        <div className='font-bold'>#{pokemon.id}</div>
+        {
+          stats.map((state, key) => {
+            switch (state.stat.name) {
+              case 'hp':
+                return (
+                  <div key={key} className='grid grid-cols-2'>
+                    <div className=" uppercase">Max Hp</div>
+                    <div className='hp-stat'>{state.base_stat}<small>Hp</small></div>
+                  </div>
+                )
+              case 'attack':
+                return (
+                  <div key={key} className='grid grid-cols-2'>
+                    <div className=" uppercase">Max Hp</div>
+                    <div className='attack-stat'>{state.base_stat}<small>Hp</small></div>
+                  </div>
+                )
+            }
+          })
+        }
+      </div>
+
+      {renderStats()}
     </div>
   )
 

@@ -21,10 +21,15 @@ export interface PokemonModel extends Stat {
   order: number
   past_types: []
   species: {}
-  sprites: Sprites
+  sprites?: Sprites
   stats: Stats[]
   types: Types[]
   weight: number
+}
+
+export interface Varieties {
+  is_default: boolean
+  pokemon: Stat
 }
 
 export interface Types {
@@ -61,10 +66,20 @@ export interface PokemonSpecies {
   name: string
   generation: Stat
   color: Stat
+  evolves_from_species: Stat,
+  varieties: Varieties[]
 }
 
 export interface FlavorTextEntries {
   flavor_text: string
   language: Stat
   version: Stat
+}
+
+export interface Region {
+  areas: Stat []
+
+  id: number
+  name: string
+  region: Stat
 }

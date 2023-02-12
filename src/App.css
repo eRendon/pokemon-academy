@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+body {
+  font-family: 'Montserrat',sans-serif;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -37,4 +41,91 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.stats-pokemon {
+  background: #e8f0e1;
+  border-radius: 17px;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 7px;
+}
+
+.hp-stat {
+  text-align: center;
+  text-transform: uppercase;
+  background: #71edb9;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 1px;
+  border-radius: 18px;
+}
+
+.attack-stat {
+  text-align: center;
+  text-transform: uppercase;
+  background: #c35fff;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 1px;
+  border-radius: 18px;
+}
+
+.text-stats {
+  padding: 1px 12px 1px 1px;
+  color: #666;
+  font-weight: 400;
+}
+
+.pokemon-name {
+  color: #44696c;
+}
+
+.card-detail {
+  background: linear-gradient(to bottom,#f0f7f5 0%,#cbfac5 300%);
+  min-height: 440px;
+}
+
+.bar-stats {
+  background: #15e8db;
+}
+
+a {
+  color: #01ace0;
+}
+
+.detail-title {
+  text-align: right;
+  color: #666;
+}
+
+h2 {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 21px;
+  color: #1d8696;
+  margin: 0 0 10px 0;
+  padding: 0;
+  line-height: 130%;
+}
+
+.type-pokemon:hover {
+  color: #01ace0;
+}
+
+.fill-comparison {
+  color: #71edb9;
+}
+
+.button-comparison {
+  background: #c35fff;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+}
+
+.button-comparison:hover {
+  background: #71edb9;
 }

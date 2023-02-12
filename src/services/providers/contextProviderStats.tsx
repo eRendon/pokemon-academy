@@ -2,13 +2,14 @@ import React, { createContext, ReactElement, useContext, useEffect, useState } f
 import { PokemonModel, PokemonSpecies, Sprites, Stats, Types } from '../../model/PokemonModel'
 import Pokemon from '../request/pokemon'
 import { SurePromise } from '../../model/SurePromise'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const APIContext = createContext({
   sprites: {} as Sprites,
   stats: [] as Stats[],
   description: {} as PokemonSpecies,
-  types: [] as Types[]
+  types: [] as Types[],
+  pokemon: {} as PokemonModel
 })
 
 export function ContextProviderStats({ children, name = '' }: { children: ReactElement, name?: string }) {
@@ -19,6 +20,7 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
   const [types, setTypes] = useState([] as Types[])
   const [pokemonDetails, setPokemonDetail] = useState({} as PokemonModel)
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     getSprite(name)
@@ -28,7 +30,7 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
     try {
       const { data } = await Pokemon.getPokemonDetail(name) as unknown as SurePromise<PokemonModel>
       const { sprites, stats, id, types } = data
-      setSprites(sprites)
+      setSprites(sprites!)
       setStats(stats)
       setTypes(types)
       setPokemonDetail(data)
@@ -49,11 +51,13 @@ export function ContextProviderStats({ children, name = '' }: { children: ReactE
   }
 
   const detailPokemon = (pokemonSpecies: PokemonSpecies) => {
-    navigate('detail', { state: { detail: pokemonSpecies, pokemonDetails }})
+    if (location.pathname !== '/detail') {
+      navigate('detail', { state: { detail: pokemonSpecies, pokemonDetails }})
+    }
   }
 
   return (
-    <APIContext.Provider value={{sprites, stats, description, types }}>
+    <APIContext.Provider value={{sprites, stats, description, types, pokemon: pokemonDetails  }}>
       <div onClick={() => detailPokemon(description)}>
         {children}
       </div>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { UseApiStats } from '../../services/providers/contextProviderStats'
 
-export function Image() {
+export function Image({ image }: { image?: string }) {
   const { sprites } = UseApiStats()
   return (
-    <img className="w-20 h-20 rounded-full" src={sprites.front_default} alt={sprites.front_default}/>
+    <img className="rounded-full flex self-center justify-self-center" src={sprites.front_default || image } alt={sprites.front_default}/>
   )
 }
 

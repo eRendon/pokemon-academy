@@ -1,5 +1,5 @@
 import { SurePromise } from '../../model/SurePromise'
-import { PokemonModel, PokemonsModel, PokemonSpecies } from '../../model/PokemonModel'
+import { PokemonModel, PokemonsModel, PokemonSpecies, Region } from '../../model/PokemonModel'
 import { AxiosService } from '../axios/axiosService'
 
 export default class Pokemon {
@@ -37,5 +37,15 @@ export default class Pokemon {
   static async getGeneration (id: number) {
     const axiosService = new AxiosService()
     return axiosService.getData(`generation/${id}`)
+  }
+
+  static async getRegion (id: number): Promise<SurePromise<Region>> {
+    const axiosService = new AxiosService<Region>()
+
+    try {
+      return await axiosService.getData(`location/${id}`)
+    } catch (e) {
+      throw e
+    }
   }
 }
